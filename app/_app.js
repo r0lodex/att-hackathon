@@ -3,13 +3,19 @@
 
     angular
         .module('lokust', ['ngResource'])
+        .config(Config)
         .factory('HeaderInjection', HeaderInjection)
         .factory('m2x', m2x)
         .controller('rootCtrl', rootCtrl);
 
+    Config.$inject = ['$httpProvider'];
     HeaderInjection.$inject = ['$q', '$rootScope'];
     m2x.$inject = ['$resource'];
-    rootCtrl.$inject = ['$rootScope', 'm2x'];
+    rootCtrl.$inject = ['$rootScope', 'm2x', '$resource'];
+
+    function Config($httpProvider) {
+        $httpProvider.interceptors.push('HeaderInjection');
+    }
 
     function HeaderInjection($q, $rootScope) {
         return {
@@ -51,22 +57,14 @@
     }
 
     function m2x($resource) {
-        return $resource(
-            'https://api-m2x.att.com/v2/:action/:device_id/:type',
-            { action: '@action', device_id: '@device_id', type: '@type' },
-            { send: { method: 'PUT' } }
-        )
+        return $resource('https://api-m2x.att.com/v2/devices/61e452568f021278e6e5bcfbfe57399f/streams/elevation/value', {}, { send: { method: 'PUT' } });
     }
 
-    function rootCtrl($rootScope, m2x) {
+    function rootCtrl($rootScope, m2x, $resource) {
         var root = this;
         root.motion = motion;
         root.action = action;
         root.counter = 0;
-
-        m2x.get({ action: 'status' }, function(response) {
-            console.log(response);
-        })
 
         $(window).on('devicemotion', root.motion);
 
@@ -81,8 +79,27 @@
         }
 
         function action(type) {
-            root.type = type;
-            root.counter++;
+            var t = new Date(),
+                v = 0;
+
+            switch(type) {
+                case 'walk':
+                    v = _getRand(4, 10);
+                break;
+                case 'jump':
+                    v = _getRand(15, 40);
+                break;
+            }
+
+            m2x.send({ timestamp: t.toISOString(), value: v },
+                function(response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function _getRand(min, max) {
+            return Math.random() * (max - min) + min;
         }
     }
 
