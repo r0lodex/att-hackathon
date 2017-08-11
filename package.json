@@ -22,9 +22,11 @@
   "homepage": "https://github.com/r0lodex/digi-hackathon#readme",
   "dependencies": {
     "angular": "^1.6.5",
+    "angular-flot": "0.0.17",
     "angular-resource": "^1.6.5",
     "angular-ui-router": "^1.0.3",
     "bootstrap": "^4.0.0-alpha.6",
+    "flot": "^0.8.0-alpha",
     "gulp-install": "^1.1.0",
     "gyronorm": "^2.0.6",
     "jquery": "^3.2.1",
