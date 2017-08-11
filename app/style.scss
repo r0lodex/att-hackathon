@@ -1,0 +1,49 @@
+@import './node_modules/bootstrap/scss/bootstrap';
+@import './node_modules/owl.carousel/src/scss/owl.carousel';
+@import './node_modules/owl.carousel/src/scss/owl.theme.default';
+
+@import './node_modules/bootstrap/scss/variables';
+
+@import './app/lnr';
+
+.bg-theme { background-color: #660033; }
+.color-theme { color: #660033; }
+.color-white { color: #FFFFFF; }
+
+body {
+    &.hero-0 { background-color: #FB9B02; }
+    &.hero-1 { background-color: #7EDC7D; }
+    &.hero-2 { background-color: #71DCFF; }
+}
+
+.rounded {
+    border-radius: 30px;
+}
+
+.btn.btn-main {
+    background-color: #660033;
+    color: white;
+}
+
+.nav {
+    padding: 0 0.9rem;
+    
+    .nav-button {
+        @extend .btn-primary;
+        padding: 10px 0px;
+        border-left: 1px solid white;
+
+        &.active {
+            @extend .bg-theme;
+        }
+    }
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.owl-carousel { display: none; }
+.bg-inverse {
+    background-color: #5E1348 !important;
+}
