@@ -20,7 +20,6 @@ gulp.task('default', function() {
     gulp.start(
         'minify-js',
         'minify-css',
-
         'corejs'
     )
 });
