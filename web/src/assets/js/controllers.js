@@ -13,7 +13,7 @@ App.controller('DashboardCtrl', ['$scope', '$localStorage', '$window',
          */
 
         // Get Chart Container
-        var dashChartLinesCon  = jQuery('.js-dash-chartjs-lines')[0].getContext('2d');
+        // var dashChartLinesCon  = jQuery('.js-dash-chartjs-lines')[0].getContext('2d');
 
         // Set Chart and Chart Data variables
         var dashChartLines, dashChartLinesData;
@@ -46,15 +46,15 @@ App.controller('DashboardCtrl', ['$scope', '$localStorage', '$window',
         };
 
         // Init Lines Chart
-        dashChartLines = new Chart(dashChartLinesCon).Line(dashChartLinesData, {
-            scaleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-            scaleFontColor: '#999',
-            scaleFontStyle: '600',
-            tooltipTitleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-            tooltipCornerRadius: 3,
-            maintainAspectRatio: false,
-            responsive: true
-        });
+        // dashChartLines = new Chart(dashChartLinesCon).Line(dashChartLinesData, {
+        //     scaleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+        //     scaleFontColor: '#999',
+        //     scaleFontStyle: '600',
+        //     tooltipTitleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+        //     tooltipCornerRadius: 3,
+        //     maintainAspectRatio: false,
+        //     responsive: true
+        // });
     }
 ]);
 
@@ -1096,9 +1096,9 @@ App.controller('CompChartsCtrl', ['$scope', '$localStorage', '$window', '$http',
         // Chart.js Charts, for more examples you can check out http://www.chartjs.org/docs
         var initChartsChartJS = function () {
             // Get Chart Containers
-            var chartLinesCon  = jQuery('.js-chartjs-lines')[0].getContext('2d');
-            var chartBarsCon   = jQuery('.js-chartjs-bars')[0].getContext('2d');
-            var chartRadarCon  = jQuery('.js-chartjs-radar')[0].getContext('2d');
+            // var chartLinesCon  = jQuery('.js-chartjs-lines')[0].getContext('2d');
+            // var chartBarsCon   = jQuery('.js-chartjs-bars')[0].getContext('2d');
+            // var chartRadarCon  = jQuery('.js-chartjs-radar')[0].getContext('2d');
 
             // Set Chart and Chart Data variables
             var chartLines, chartBars, chartRadar;
@@ -1143,9 +1143,9 @@ App.controller('CompChartsCtrl', ['$scope', '$localStorage', '$window', '$http',
             };
 
             // Init Charts
-            chartLines = new Chart(chartLinesCon).Line(chartLinesBarsRadarData, globalOptions);
-            chartBars  = new Chart(chartBarsCon).Bar(chartLinesBarsRadarData, globalOptions);
-            chartRadar = new Chart(chartRadarCon).Radar(chartLinesBarsRadarData, globalOptions);
+            // chartLines = new Chart(chartLinesCon).Line(chartLinesBarsRadarData, globalOptions);
+            // chartBars  = new Chart(chartBarsCon).Bar(chartLinesBarsRadarData, globalOptions);
+            // chartRadar = new Chart(chartRadarCon).Radar(chartLinesBarsRadarData, globalOptions);
         };
 
         // jQuery Sparkline Charts, for more examples you can check out http://omnipotent.net/jquery.sparkline/#s-docs
