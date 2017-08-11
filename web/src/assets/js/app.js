@@ -16,14 +16,32 @@ var App = angular.module('app', [
 // Router configuration
 App.config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/angularjs');
+        $urlRouterProvider.otherwise('/dashboard');
         $stateProvider
-            .state('angularjs', {
-                url: '/angularjs',
-                templateUrl: 'assets/views/ready_angularjs.html'
-            })
             .state('dashboard', {
                 url: '/dashboard',
+                templateUrl: 'assets/views/dashboard.html',
+                controller: 'CompChartsCtrl',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            insertBefore: '#css-bootstrap',
+                            serie: true,
+                            files: [
+                                'assets/js/plugins/sparkline/jquery.sparkline.min.js',
+                                'assets/js/plugins/easy-pie-chart/jquery.easypiechart.min.js',
+                                'assets/js/plugins/chartjs/Chart.min.js',
+                                'assets/js/plugins/flot/jquery.flot.min.js',
+                                'assets/js/plugins/flot/jquery.flot.pie.min.js',
+                                'assets/js/plugins/flot/jquery.flot.stack.min.js',
+                                'assets/js/plugins/flot/jquery.flot.resize.min.js'
+                            ]
+                        });
+                    }]
+                }
+            })
+            .state('dashboard2', {
+                url: '/dashboard2',
                 templateUrl: 'assets/views/ready_dashboard.html',
                 controller: 'DashboardCtrl',
                 resolve: {

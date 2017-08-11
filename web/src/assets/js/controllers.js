@@ -58,6 +58,96 @@ App.controller('DashboardCtrl', ['$scope', '$localStorage', '$window',
     }
 ]);
 
+App.controller('myVibrationCtrl', ['$scope', '$localStorage', '$window', '$http',
+    function ($scope, $localStorage, $window, $http) {
+        function updateVib() {
+            $http.get('/https://api-m2x.att.com/v2/devices/61e452568f021278e6e5bcfbfe57399f/streams/elevation/values')
+                 .then(function(response) {
+                    chartLive.setData(response.data);
+                    chartLive.draw();
+                    setTimeout(updateVib, 100);
+             });
+        }
+    }
+]);
+             
+        // var myVibration = this;
+
+        // var initChartsFlot = function(){
+        //     var dataLive = [];
+        //     var flotLive       = jQuery('.js-flot-live');
+        //     function getRandomData() {
+        //         dataLive = $scope.myVibrateData;
+        //         if (dataLive.length > 0) {
+        //             dataLive = dataLive.slice(1);
+        //         }
+
+        //         while (dataLive.length < 300) {
+        //             var prev = dataLive.length > 0 ? dataLive[dataLive.length - 1] : 50;
+        //             var y = prev + Math.random() * 10 - 5;
+        //             if (y < 0)
+        //                 y = 0;
+        //             if (y > 100)
+        //                 y = 100;
+        //             dataLive.push(y);
+        //         }
+
+        //         var res = [];
+        //         for (var i = 0; i < dataLive.length; ++i)
+        //             res.push([i, dataLive[i]]);
+
+        //         jQuery('.js-flot-live-info').html(y.toFixed(0) + '%');
+
+        //         return res;
+        //     }
+
+        //     function updateChartLive() { // Update live chart
+        //         chartLive.setData([getRandomData()]);
+        //         // chartLive.draw();
+        //         // setTimeout(updateChartLive, 70);
+        //         $http.get('/https://api-m2x.att.com/v2/devices/61e452568f021278e6e5bcfbfe57399f/streams/elevation/values')
+        //         .then(function(response) {
+        //             $scope.myVibrateData = response.data;
+        //             setTimeout(updateChartLive, 70);
+        //         });
+
+        //     }
+
+        //     var chartLive = jQuery.plot(flotLive, // Init live chart
+        //         [{ data: getRandomData() }],
+        //         {
+        //             series: {
+        //                 shadowSize: 0
+        //             },
+        //             lines: {
+        //                 show: true,
+        //                 lineWidth: 2,
+        //                 fill: true,
+        //                 fillColor: {
+        //                     colors: [{opacity: .2}, {opacity: .2}]
+        //                 }
+        //             },
+        //             colors: ['#75b0eb'],
+        //             grid: {
+        //                 borderWidth: 0,
+        //                 color: '#aaaaaa'
+        //             },
+        //             yaxis: {
+        //                 show: true,
+        //                 min: 0,
+        //                 max: 110
+        //             },
+        //             xaxis: {
+        //                 show: false
+        //             }
+        //         }
+        //     );
+
+        //     updateChartLive(); // Start getting new data
+//     };
+//     }
+// ]);
+
 // UI Elements Activity Controller
 App.controller('UiActivityCtrl', ['$scope', '$localStorage', '$window',
     function ($scope, $localStorage, $window) {
@@ -1001,8 +1091,8 @@ App.controller('FormsWizardCtrl', ['$scope', '$localStorage', '$window',
 ]);
 
 // Components Charts Controller
-App.controller('CompChartsCtrl', ['$scope', '$localStorage', '$window',
-    function ($scope, $localStorage, $window) {
+App.controller('CompChartsCtrl', ['$scope', '$localStorage', '$window', '$http',
+    function ($scope, $localStorage, $window, $http) {
         // Chart.js Charts, for more examples you can check out http://www.chartjs.org/docs
         var initChartsChartJS = function () {
             // Get Chart Containers
@@ -1321,39 +1411,27 @@ App.controller('CompChartsCtrl', ['$scope', '$localStorage', '$window',
             // Live Chart
             var dataLive = [];
 
-            function getRandomData() { // Random data generator
-
-                if (dataLive.length > 0)
-                    dataLive = dataLive.slice(1);
-
-                while (dataLive.length < 300) {
-                    var prev = dataLive.length > 0 ? dataLive[dataLive.length - 1] : 50;
-                    var y = prev + Math.random() * 10 - 5;
-                    if (y < 0)
-                        y = 0;
-                    if (y > 100)
-                        y = 100;
-                    dataLive.push(y);
-                }
-
-                var res = [];
-                for (var i = 0; i < dataLive.length; ++i)
-                    res.push([i, dataLive[i]]);
-
-                // Show live chart info
-                jQuery('.js-flot-live-info').html(y.toFixed(0) + '%');
-
-                return res;
-            }
+            $http.defaults.headers.common['X-M2X-KEY'] = '9fa20496a5d895478d4b613631ba765a';
 
             function updateChartLive() { // Update live chart
-                chartLive.setData([getRandomData()]);
-                chartLive.draw();
-                setTimeout(updateChartLive, 70);
+                $http.get('https://api-m2x.att.com/v2/devices/61e452568f021278e6e5bcfbfe57399f/streams/elevation/values')
+                    .then(function(response) {
+                        var arr = [];
+                        
+                        response.data.values.forEach(function(v) {
+                            arr.push([v.timestamp, v.value]);
+                        });
+
+                        console.log(arr);
+
+                        chartLive.setData(arr);
+                        chartLive.draw();
+                        setTimeout(updateChartLive, 60000);
+                });
             }
 
             var chartLive = jQuery.plot(flotLive, // Init live chart
-                [{ data: getRandomData() }],
+                [{ data: [[10, 20],[5, 30],[4, 2]]}],
                 {
                     series: {
                         shadowSize: 0
@@ -1373,11 +1451,9 @@ App.controller('CompChartsCtrl', ['$scope', '$localStorage', '$window',
                     },
                     yaxis: {
                         show: true,
-                        min: 0,
-                        max: 110
                     },
                     xaxis: {
-                        show: false
+                        show: true
                     }
                 }
             );
