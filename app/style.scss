@@ -6,44 +6,19 @@
 
 @import './app/lnr';
 
-.bg-theme { background-color: #660033; }
-.color-theme { color: #660033; }
-.color-white { color: #FFFFFF; }
+$navbar-clearance: 20px;
+$sidebar-width: 150px;
 
-body {
-    &.hero-0 { background-color: #FB9B02; }
-    &.hero-1 { background-color: #7EDC7D; }
-    &.hero-2 { background-color: #71DCFF; }
-}
+body { position: relative; }
 
-.rounded {
-    border-radius: 30px;
-}
 
-.btn.btn-main {
-    background-color: #660033;
-    color: white;
-}
-
-.nav {
-    padding: 0 0.9rem;
-    
-    .nav-button {
-        @extend .btn-primary;
-        padding: 10px 0px;
-        border-left: 1px solid white;
-
-        &.active {
-            @extend .bg-theme;
-        }
-    }
-}
-
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-    display: none !important;
-}
-
-.owl-carousel { display: none; }
-.bg-inverse {
-    background-color: #5E1348 !important;
+// Structure
+.button {
+    position: fixed;
+    width: 50%;
+    height: 100%;
+    z-index: 100;
+    top: 0;
+    &.walk { left: 0; background: rgba(#000, 0.4) }
+    &.jump { right: 0; background: rgba(#000, 0.4) }
 }

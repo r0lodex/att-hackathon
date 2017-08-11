@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="raidrescue">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.5">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../dist/css/rr.css">
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+</head>
+<body ng-controller="rootCtrl as root">
+    <nav class="navbar fixed-top navbar-inverse bg-inverse">
+        <a href="" class="navbar-brand text-center">
+            <img src="../dist/img/lokust_symbol.png" width="45px">
+        </a>
+    </nav>
+    
+    <section class="" ui-view></section>
+
+    <nav class="nav fixed-bottom justify-content-center text-center row">
+        <a class="col nav-button" href="" ui-sref="home" ui-sref-active="active"><h3 class="lnr lnr-home"></h3> Home</a>
+    </nav>
+    
+    <script src="../dist/js/core.min.js"></script>
+    <script src="../dist/js/app.min.js"></script>
+</body>
+</html>
