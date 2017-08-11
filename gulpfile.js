@@ -14,17 +14,12 @@ var gulp     = require('gulp'),
 gulp.task('minify-js', consolidateJSFiles);
 gulp.task('minify-css', minifycss);
 
-gulp.task('minify-dash-js', dashboardCompileJS);
-gulp.task('minify-dash-css', minifyDashboardCss);
-
 gulp.task('corejs', concatJS);
 
 gulp.task('default', function() {
     gulp.start(
         'minify-js',
         'minify-css',
-        'minify-dash-js',
-        'minify-dash-css',
 
         'corejs'
     )
@@ -33,8 +28,6 @@ gulp.task('default', function() {
 gulp.task('watch', function() {
     gulp.watch('./app/**/**/*.js', ['minify-js']);
     gulp.watch('./app/**/**/*.scss', ['minify-css']);
-    gulp.watch('./dashboard/**/**/*.js', ['minify-dash-js']);
-    gulp.watch('./dashboard/**/**/*.scss', ['minify-dash-css']);
     
     gulp.watch('./core.js', ['corejs']);
 });
@@ -64,21 +57,4 @@ function consolidateJSFiles() {
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest('./dist/js'))
         .pipe(notify({ message: 'App JS minified' }))
-}
-
-function dashboardCompileJS() {
-    return gulp.src('./dashboard/**/*.js')
-        .pipe(concat('dashboard.js'))
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(gulp.dest('./dist/dashboard'))
-        .pipe(notify({ message: 'Dashboard JS minified' }))
-}
-
-function minifyDashboardCss() {
-    return gulp.src('./dashboard/**/*.scss')
-        .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
-        .pipe(concat('dashboard.css'))
-        .pipe(prefix())
-        .pipe(gulp.dest('./dist/dashboard'))
-        .pipe(notify({ message: 'Dashboard CSS minified.' }))
 }
