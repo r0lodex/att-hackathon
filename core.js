@@ -10,3 +10,4 @@
 //=include "./node_modules/pubnub/dist/web/pubnub.js"
 
 //=include "./node_modules/ngmap/build/scripts/ng-map.no-dependency.js"
+//=include "./node_modules/gyronorm/dist/gyronorm.complete.min.js"

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="lokust">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,16 +8,15 @@
     <link rel="stylesheet" href="dist/css/rr.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no"/>
 
-    <script src="dist/js/core.js"></script>
-    <script src="dist/js/app.js"></script>
+    <script src="dist/js/core.min.js"></script>
+    <script src="dist/js/app.min.js"></script>
 
     <title>Lokust</title>
 </head>
-<body>
-    <div class="container text-center">
-        <div class="jumbotron">
-            <h1 class="display-3">Lokust</h1>
-        </div>
-    </div>
+<body ng-controller="rootCtrl as root" class="text-center">
+    <img src="dist/img/lokust_symbol.png" width="200px">
+    <h3 ng-bind="root.type + ' ' + root.counter"></h3>
+    <a class="button walk" ng-click="root.action('walk')">..</a>
+    <a class="button jump" ng-click="root.action('jump')">..</a>
 </body>
 </html>
