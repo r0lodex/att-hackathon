@@ -6,12 +6,14 @@
         .config(Config)
         .factory('HeaderInjection', HeaderInjection)
         .factory('m2x', m2x)
-        .controller('rootCtrl', rootCtrl);
+        .controller('rootCtrl', rootCtrl)
+        .controller('simCtrl', simCtrl);
 
     Config.$inject = ['$httpProvider'];
     HeaderInjection.$inject = ['$q', '$rootScope'];
     m2x.$inject = ['$resource'];
     rootCtrl.$inject = ['$rootScope', 'm2x', '$resource'];
+    simCtrl.$inject = [];
 
     function Config($httpProvider) {
         $httpProvider.interceptors.push('HeaderInjection');
@@ -57,37 +59,28 @@
     }
 
     function m2x($resource) {
-        return $resource('https://api-m2x.att.com/v2/devices/61e452568f021278e6e5bcfbfe57399f/streams/elevation/value', {}, { send: { method: 'PUT' } });
+        return $resource('https://api-m2x.att.com/v2/devices/61e452568f021278e6e5bcfbfe57399f/streams/elev2/value', {}, { send: { method: 'PUT' } });
     }
 
     function rootCtrl($rootScope, m2x, $resource) {
         var root = this;
-        root.motion = motion;
         root.action = action;
-        root.counter = 0;
-
-        $(window).on('devicemotion', root.motion);
-
-        if (window.DeviceMotionEvent) {
-            window.addEventListener('devicemotion', root.motion, true);
-        } else {
-            root.error = console.log('DeviceMotionEvent is not supported')
-        }
-
-        function motion(event){
-            root.data = [ event.acceleration.z ];
-        }
+        root.counter = 10;
+        var t = new Date('2017-08-11');
 
         function action(type) {
-            var t = new Date(),
-                v = 0;
+            root.counter = root.counter+10;
+            var v = 0;
+            t.setMinutes(t.getMinutes() + root.counter);
+
+            console.log(t);
 
             switch(type) {
                 case 'walk':
-                    v = _getRand(4, 10);
+                    v = _getRand(4, 6);
                 break;
                 case 'jump':
-                    v = _getRand(15, 40);
+                    v = _getRand(30, 40);
                 break;
             }
 
@@ -99,8 +92,12 @@
         }
 
         function _getRand(min, max) {
-            return Math.random() * (max - min) + min;
+            return Math.floor(Math.random() * (max - min) + min);
         }
+    }
+
+    function simCtrl() {
+        var sim = this;
     }
 
 

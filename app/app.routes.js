@@ -15,6 +15,12 @@
             .state('simulator', {
                 url: '/simulator',
                 templateUrl: '../app/index.html',
+                controller: 'simCtrl',
+                controllerAs: 'sim'
+            })
+            .state('dashboard', {
+                url: '/dashboard',
+                templateUrl: '../app/dashboard/dashboard.html',
                 controller: 'dashboardCtrl',
                 controllerAs: 'dashboard'
             })

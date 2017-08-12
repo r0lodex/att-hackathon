@@ -11,3 +11,6 @@
 
 //=include "./node_modules/ngmap/build/scripts/ng-map.no-dependency.js"
 //=include "./node_modules/gyronorm/dist/gyronorm.complete.min.js"
+
+//=include "./node_modules/flot/jquery.flot.js"
+//=include "./node_modules/angular-flot/angular-flot.min.js"

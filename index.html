@@ -14,9 +14,6 @@
     <title>Lokust</title>
 </head>
 <body ng-controller="rootCtrl as root" class="text-center">
-    <img src="dist/img/lokust_symbol.png" width="200px">
-    <h3 ng-bind="root.type + ' ' + root.counter"></h3>
-    <a class="button walk" ng-click="root.action('walk')">..</a>
-    <a class="button jump" ng-click="root.action('jump')">..</a>
+    <div ui-view></div>
 </body>
 </html>
