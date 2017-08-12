@@ -64,14 +64,46 @@
 
     function rootCtrl($rootScope, m2x, $resource) {
         var root = this;
+        root.rootscope = $rootScope;
+        root.stream = { channel: 'dghcktn_channel' };
         root.action = action;
         root.counter = 10;
+        root.loc_counter = 0;
+        
         var t = new Date('2017-08-11');
+        var pubnub = new PubNub({
+            publishKey: 'pub-c-38ebf9a8-1a5a-4914-91fa-ae24e95a844e',
+            subscribeKey: 'sub-c-5b21cd86-747c-11e7-8153-0619f8945a4f'
+        });
+
+        function _publish(message, callback) {
+            root.stream.message = message;
+            pubnub.publish(root.stream, function(status, response) {
+                console.log(status, response);
+                if (callback) {
+                    callback(status, response);
+                }
+            });
+        }
 
         function action(type) {
             root.counter = root.counter+10;
             var v = 0;
             t.setMinutes(t.getMinutes() + root.counter);
+            var locations = [
+                [2.921713, 101.665888],
+                [2.921370, 101.666227],
+                [2.920299, 101.666860],
+                [2.919667, 101.667160],
+                [2.918435, 101.667664],
+                [2.917814, 101.667954],
+                [2.916469, 101.668528],
+                [2.915810, 101.668684],
+                [2.915510, 101.668797],
+                [2.914997, 101.668885]
+            ]
+
+            root._locations = [];
 
             console.log(t);
 
@@ -86,7 +118,9 @@
 
             m2x.send({ timestamp: t.toISOString(), value: v },
                 function(response) {
-                    console.log(response);
+                    root.loc_counter = (root.loc_counter == 9) ? root.loc_counter-1 : root.loc_counter+1;
+                    console.log(root.loc_counter);
+                    _publish(JSON.stringify(locations[root.loc_counter]));
                 }
             );
         }

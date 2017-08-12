@@ -22,3 +22,16 @@ body { position: relative; }
     &.walk { left: 0; background: rgba(#000, 0.4) }
     &.jump { right: 0; background: rgba(#000, 0.4) }
 }
+
+#map {
+    width: 1000px;
+    height: 500px;
+    margin: 0 auto;
+    .victim_mark {
+        text-align: center;
+        background: #FFF;
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+    }
+}

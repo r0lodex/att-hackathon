@@ -22,7 +22,7 @@
                 url: '/dashboard',
                 templateUrl: '../app/dashboard/dashboard.html',
                 controller: 'dashboardCtrl',
-                controllerAs: 'dashboard'
+                controllerAs: 'dash'
             })
 
         $urlRouterProvider.otherwise('/overview');
